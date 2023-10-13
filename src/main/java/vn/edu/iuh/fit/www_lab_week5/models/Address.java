@@ -19,12 +19,13 @@ import java.util.List;
 public class Address {
     @Id
     @GeneratedValue(strategy =GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "add_id")
     private long id;
     @Column(name = "stress" , length = 150,  nullable = false)
     private String stress;
     @Column(name = "city" , length = 50,  nullable = false)
     private String city;
+    @Enumerated(EnumType.STRING)
     @Column(name = "country" , length = 20,  nullable = false)
     private Country country;
     @Column(name = "number" , length = 20,  nullable = false)

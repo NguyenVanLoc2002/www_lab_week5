@@ -21,6 +21,8 @@ public class Skill {
     private String desc;
     @Column(name = "skill_name", length = 150, nullable = false)
     private String name;
+
+    @Enumerated(EnumType.ORDINAL)
     @Column(name = "skill_type", length = 10, nullable = false)
     private SkillType type;
     @OneToMany(mappedBy = "skill")

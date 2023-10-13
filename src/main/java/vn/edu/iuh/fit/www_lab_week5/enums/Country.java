@@ -204,6 +204,14 @@ public enum Country {
     ZAMBIA("Zambia"),
     ZIMBABWE("Zimbabwe");
 
+
+    private String country;
+
     Country(String country) {
+        this.country = country;
+    }
+
+    public String getCountry() {
+        return country;
     }
 }
