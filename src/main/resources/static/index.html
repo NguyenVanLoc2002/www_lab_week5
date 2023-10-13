@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <style>
+        /* CSS cho thanh chức năng */
+        ul.navbar {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333; /* Màu nền của thanh chức năng */
+        }
+
+        li.navitem {
+            float: left;
+        }
+
+        li.navitem a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li.navitem a:hover {
+            background-color: #ddd; /* Màu nền khi di chuột qua nút */
+        }
+
+        /* CSS cho vùng "Tin tuyển dụng" */
+        .jobpostings-content {
+            display: none;
+            background-color: #f1f1f1; /* Màu nền của vùng "Tin tuyển dụng" */
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+<h1>HOME</h1>
+
+<!-- Thanh chức năng -->
+<ul class="navbar">
+    <li class="navitem"><a href="/">Trang chủ</a></li>
+    <li class="navitem" id="jobpostingsDropdown">
+        <a href="javascript:void(0);" class="dropbtn" onmouseover="showDropdown()">Tin tuyển dụng</a>
+        <div class="dropdown-content jobpostings-content" id="jobpostingsContent" onmouseout="hideContent()">
+            <a href="/viewjobpostings">Xem tin tuyển dụng</a>
+            <a href="/createjobposting">Đăng tin tuyển dụng</a>
+        </div>
+    </li>
+    <li class="navitem"><a href="/candidates">Ứng viên</a></li>
+</ul>
+
+<script>
+    function showDropdown() {
+        var content = document.getElementById("jobpostingsContent");
+        var dropdown = document.getElementById("jobpostingsDropdown");
+        content.style.display = "block";
+        dropdown.style.backgroundColor = "#ddd"; // Màu nền của nút "Tin tuyển dụng" khi mở
+    }
+
+    function hideDropdown() {
+        var content = document.getElementById("jobpostingsContent");
+        var dropdown = document.getElementById("jobpostingsDropdown");
+        content.style.display = "none";
+        dropdown.style.backgroundColor = "#333"; // Màu nền của nút "Tin tuyển dụng" khi đóng
+    }
+
+    function hideContent() {
+        var content = document.getElementById("jobpostingsContent");
+        content.style.display = "none";
+        var dropdown = document.getElementById("jobpostingsDropdown");
+        dropdown.style.backgroundColor = "#333"; // Màu nền của nút "Tin tuyển dụng" khi di chuyển ra khỏi vùng
+    }
+</script>
+
+</body>
+</html>

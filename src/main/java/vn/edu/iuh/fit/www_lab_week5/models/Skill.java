@@ -23,7 +23,7 @@ public class Skill {
     private String name;
 
     @Enumerated(EnumType.ORDINAL)
-    @Column(name = "skill_type", length = 10, nullable = false)
+    @Column(name = "skill_type", nullable = false)
     private SkillType type;
     @OneToMany(mappedBy = "skill")
     private List<Job_skill> jobSkills;

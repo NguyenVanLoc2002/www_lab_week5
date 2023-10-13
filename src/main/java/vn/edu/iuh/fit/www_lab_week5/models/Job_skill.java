@@ -25,7 +25,7 @@ public class Job_skill {
     @Column(name = "more_infos",length = 1000, nullable = false)
     private String more_info;
     @Enumerated(EnumType.ORDINAL)
-    @Column(name = "skill_level",length = 10, nullable = false)
+    @Column(name = "skill_level", nullable = false)
     private SkillLevel skill_level;
 
 }
