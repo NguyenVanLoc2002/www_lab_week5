@@ -1,0 +1,33 @@
+/* CSS cho thanh chức năng */
+ul.navbar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333; /* Màu nền của thanh chức năng */
+}
+
+li.navitem {
+    float: left;
+}
+
+li.navitem a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li.navitem a:hover {
+    background-color: #ddd; /* Màu nền khi di chuột qua nút */
+}
+
+/* CSS cho vùng "Tin tuyển dụng" */
+.jobpostings-content {
+    display: none;
+    background-color: #333; /* Màu nền của vùng "Tin tuyển dụng" */
+    padding: 10px;
+    position: absolute;
+    z-index: 1;
+}

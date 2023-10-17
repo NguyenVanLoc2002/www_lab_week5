@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Đăng tin tuyển dụng</title>
+    <link th:href="@{/css/styleNavBar.css}" rel="stylesheet">
+</head>
+<body>
+
+<!-- Thanh chức năng -->
+<ul class="navbar">
+    <li class="navitem"><a th:href="@{/}">Trang chủ</a></li>
+    <li class="navitem" id="jobpostingsDropdown" onmouseenter="showDropdown()" onmouseleave="hideDropdown()">
+        <a href="javascript:void(0);" class="dropbtn">Tin tuyển dụng</a>
+        <div class="dropdown-content jobpostings-content" id="jobpostingsContent">
+            <a th:href="@{/viewjobpostings}">Xem tin tuyển dụng</a>
+            <a th:href="@{/cj}">Đăng tin tuyển dụng</a>
+        </div>
+    </li>
+    <li class="navitem"><a th:href="@{/candidates}">Ứng viên</a></li>
+</ul>
+<h1>Tạo tin tuyển dụng</h1>
+
+
+<script th:src="@{/js/NavBar.js}"></script>
+<form action="createjobposting/new" method="post" th:object="${job_skill}">
+    <!--        Chọn job từ danh sách job-->
+    <label for="job">Chọn công việc: </label>
+    <select id="job" name="job" th:field="*{job}">
+        <option th:each="j:${jobs}" th:value="${j.id}" th:text="${j.name}">
+        </option>
+    </select>
+    </br>
+    </br>
+    <!--        Chọn skill từ danh sách skill-->
+    <label>Chọn kỹ năng: </label>
+    <div th:each="skill: ${skills}">
+        <input type="checkbox" th:id="${'skill-' + skill.id}" th:name="skill" th:value="${skill.id}" th:field="*{skill}">
+        <label th:for="${'skill-' + skill.id}" th:text="${skill.name}"></label>
+        <br>
+    </div>
+    </br>
+    </br>
+    <!--        Chọn cấp độ kỹ năng-->
+    <label for="skill_level">Chọn cấp độ kỹ năng: </label>
+    <select id="skill_level" name="skill_level" th:field="*{skill_level}">
+        <option th:each="sl:${skillLevels}" th:value="${sl}" th:text="${sl}">
+        </option>
+    </select>
+
+
+    </br>
+    </br>
+    <!--        Điền các thông tin khác-->
+    <label for="more_info">Mô tả công việc: </label>
+    <textarea th:field="*{more_info}" id="more_info" rows="5" cols="50" placeholder="Mô tả chi tiết công việc" style="resize: none"></textarea>
+    </br>
+    </br>
+    <button type="submit">Create</button>
+    <button type="reset">Reset</button>
+</form>
+
+</body>
+</html>
