@@ -33,32 +33,55 @@
     </br>
     </br>
     <!--        Chọn skill từ danh sách skill-->
+
     <label>Chọn kỹ năng: </label>
     <div th:each="skill: ${skills}">
-        <input type="checkbox" th:id="${'skill-' + skill.id}" th:name="skill" th:value="${skill.id}" th:field="*{skill}">
+        <input type="checkbox" th:id="${'skill-' + skill.id}" th:name="skill" th:value="${skill.id}"
+               th:field="*{skill}">
         <label th:for="${'skill-' + skill.id}" th:text="${skill.name}"></label>
+
+        <!--        Chọn cấp độ kỹ năng-->
+        <label th:for="${'skillLV-'+skill.id}">Chọn cấp độ kỹ năng: </label>
+        <select th:id="${'skillLV-'+skill.id}" name="skill_level" th:field="*{skill_level}"  disabled>
+            <option th:each="sl:${skillLevels}" th:value="${sl}" th:text="${sl}">
+            </option>
+        </select>
         <br>
+
+        <!--        Điền các thông tin khác-->
+        <label th:for="${'more_info-'+skill.id}">Mô tả thêm: </label>
+        <textarea th:field="*{more_info}" th:id="${'more_info-'+skill.id}" rows="5" cols="50" placeholder="Mô tả thêm"
+                  style="resize: none" disabled></textarea>
     </div>
     </br>
     </br>
-    <!--        Chọn cấp độ kỹ năng-->
-    <label for="skill_level">Chọn cấp độ kỹ năng: </label>
-    <select id="skill_level" name="skill_level" th:field="*{skill_level}">
-        <option th:each="sl:${skillLevels}" th:value="${sl}" th:text="${sl}">
-        </option>
-    </select>
 
 
-    </br>
-    </br>
-    <!--        Điền các thông tin khác-->
-    <label for="more_info">Mô tả công việc: </label>
-    <textarea th:field="*{more_info}" id="more_info" rows="5" cols="50" placeholder="Mô tả chi tiết công việc" style="resize: none"></textarea>
-    </br>
-    </br>
     <button type="submit">Create</button>
     <button type="reset">Reset</button>
 </form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var skills = document.querySelectorAll('input[type="checkbox"]');
+        skills.forEach(function (skill) {
+            skill.addEventListener('change', function () {
+                var skillId = skill.value;
+                var skillLevelSelect = document.getElementById('skillLV-' + skillId);
+                var moreInfoTextarea = document.getElementById('more_info-' + skillId);
+
+                if (skill.checked) {
+                    skillLevelSelect.disabled = false;
+                    moreInfoTextarea.disabled = false;
+                } else {
+                    skillLevelSelect.disabled = true;
+                    moreInfoTextarea.disabled = true;
+                }
+            });
+        });
+    });
+
+</script>
 
 </body>
 </html>

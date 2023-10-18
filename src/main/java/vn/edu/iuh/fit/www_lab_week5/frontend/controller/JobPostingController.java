@@ -1,6 +1,8 @@
 package vn.edu.iuh.fit.www_lab_week5.frontend.controller;
 
+import io.micrometer.common.util.StringUtils;
 import jakarta.servlet.http.HttpServletRequest;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,8 +31,7 @@ public class JobPostingController {
     private SkillModel skillModel;
     @Autowired
     private JobSkillModel jobSkillModel;
-
-
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(JobPostingController.class.getName());
 
     @GetMapping("/cj")
     public String showForm(Model model) {
@@ -39,7 +40,7 @@ public class JobPostingController {
         SkillLevel[] skillLevels = SkillLevel.values();
         model.addAttribute("jobs", jobs);
         model.addAttribute("skills", skills);
-        model.addAttribute("skillLevels",skillLevels);
+        model.addAttribute("skillLevels", skillLevels);
 
         model.addAttribute("job_skill", new Job_skill());
         return "jobskill/createjobposting";
@@ -49,16 +50,32 @@ public class JobPostingController {
 
     @PostMapping("/createjobposting/new")
     public String createJobPosting(@ModelAttribute("job_skill") Job_skill jobSkill, HttpServletRequest request) {
-        String[] skillArrays= request.getParameterValues("skill");
-        for (String skillId:skillArrays) {
-            Job_skill newJobSkill = new Job_skill();
-            newJobSkill.setJob(jobSkill.getJob());
+        String[] skillLevelArrays1 = request.getParameterValues("skill_level");
+        for (String skillLevel : skillLevelArrays1) {
+            logger.info("Skill Level: " + skillLevel);
+        }
+        String[] skillArrays = request.getParameterValues("skill");
+        String[] skillLevelArrays = request.getParameterValues("skill_level");
+        String[] moreInfoArrays = request.getParameterValues("more_info");
+        for (int i = 0; i < skillArrays.length; i++) {
+            String skillId = skillArrays[i];
+            String skillLv = skillLevelArrays[i];
+            String moreInfo = moreInfoArrays[i];
             Skill skill = skillModel.getById(Long.parseLong(skillId));
+            //Chuyển đổi dữ liệu SKillLevel Enum
+            SkillLevel skillLevel = SkillLevel.valueOf(skillLv);
+
+
+            Job_skill newJobSkill = new Job_skill();
             newJobSkill.setSkill(skill);
-            newJobSkill.setSkill_level(jobSkill.getSkill_level());
-            newJobSkill.setMore_info(jobSkill.getMore_info());
+            newJobSkill.setJob(jobSkill.getJob());
+            newJobSkill.setSkill_level(skillLevel);
+            newJobSkill.setMore_info(moreInfo);
             jobSkillModel.insertJobSkill(newJobSkill);
+
         }
         return "redirect:/viewjobpostings";
     }
+
+
 }
