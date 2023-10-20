@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ứng tuyển </title>
+</head>
+<body>
+<form action="candidate/new" method="post" th:object="${candidate}">
+    <label for="name">Họ và tên:</label>
+    <input type="text" id="name" th:field="*{full_name}"></br></br>
+
+    <label for="dob">Day of birth:</label>
+    <input type="date" id="dob" th:field="*{dob}"></br></br>
+
+    <label for="phone">Số điện thoại: </label>
+    <input type="text" id="phone" th:field="*{phone}"></br></br>
+
+    <label for="email">Email: </label>
+    <input type="text" id="email" th:field="*{email}"></br></br>
+
+    <label for="address">Địa chỉ: </label>
+    <select id="address" th:field="*{address}">
+        <option th:each="add: ${addresses}" th:value="${add.id}" th:text="${add.city}" ></option>
+    </select>
+
+
+
+</form>
+</body>
+</html>
