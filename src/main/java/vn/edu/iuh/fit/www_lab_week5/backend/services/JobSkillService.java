@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import vn.edu.iuh.fit.www_lab_week5.backend.models.Job_skill;
 import vn.edu.iuh.fit.www_lab_week5.backend.reponsitories.Job_skillRepository;
 
+import java.util.List;
+
 @Service
 public class JobSkillService {
     @Autowired
@@ -14,5 +16,9 @@ public class JobSkillService {
 
     public void insertJobSkill(Job_skill jobSkill){
         jobSkillRepository.save(jobSkill);
+    }
+
+    public List<Job_skill> findAll(){
+        return jobSkillRepository.findAll();
     }
 }

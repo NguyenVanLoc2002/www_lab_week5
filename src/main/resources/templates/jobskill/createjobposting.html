@@ -13,7 +13,7 @@
     <li class="navitem" id="jobpostingsDropdown" onmouseenter="showDropdown()" onmouseleave="hideDropdown()">
         <a href="javascript:void(0);" class="dropbtn">Tin tuyển dụng</a>
         <div class="dropdown-content jobpostings-content" id="jobpostingsContent">
-            <a th:href="@{/viewjobpostings}">Xem tin tuyển dụng</a>
+            <a th:href="@{/view}">Xem tin tuyển dụng</a>
             <a th:href="@{/cj}">Đăng tin tuyển dụng</a>
         </div>
     </li>
@@ -33,12 +33,11 @@
     </br>
     </br>
     <!--        Chọn skill từ danh sách skill-->
-
     <label>Chọn kỹ năng: </label>
     <div th:each="skill: ${skills}">
         <input type="checkbox" th:id="${'skill-' + skill.id}" th:name="skill" th:value="${skill.id}"
                th:field="*{skill}">
-        <label th:for="${'skill-' + skill.id}" th:text="${skill.name}"></label>
+        <label th:for="${'skill-' + skill.id}" th:text="${skill.name}"></label><br>
 
         <!--        Chọn cấp độ kỹ năng-->
         <label th:for="${'skillLV-'+skill.id}">Chọn cấp độ kỹ năng: </label>

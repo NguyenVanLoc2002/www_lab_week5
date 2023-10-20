@@ -77,5 +77,12 @@ public class JobPostingController {
         return "redirect:/viewjobpostings";
     }
 
-
+    @GetMapping ("/view")
+    public String showViewJob(Model model){
+        List<Job_skill> jobSkills = jobSkillModel.findAll();
+        model.addAttribute("jobSkills",jobSkills);
+        List<Job> jobs = jobModel.findAll();
+        model.addAttribute("jobs",jobs);
+        return "jobskill/viewjobpostings";
+    }
 }

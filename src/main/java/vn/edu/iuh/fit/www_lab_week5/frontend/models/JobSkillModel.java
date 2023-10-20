@@ -5,6 +5,8 @@ import org.springframework.stereotype.Component;
 import vn.edu.iuh.fit.www_lab_week5.backend.models.Job_skill;
 import vn.edu.iuh.fit.www_lab_week5.backend.services.JobSkillService;
 
+import java.util.List;
+
 @Component
 public class JobSkillModel {
 
@@ -14,6 +16,10 @@ public class JobSkillModel {
     public void insertJobSkill(Job_skill jobSkill){
         jobSkillService.insertJobSkill(
                 jobSkill);
+    }
+
+    public List<Job_skill> findAll(){
+        return jobSkillService.findAll();
     }
 
 }

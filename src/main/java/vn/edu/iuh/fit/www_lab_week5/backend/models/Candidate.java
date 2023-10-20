@@ -3,6 +3,7 @@ package vn.edu.iuh.fit.www_lab_week5.backend.models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class Candidate {
     @Column(name = "candidate_id")
     private long id;
     @Column(name = "dob", nullable = false)
-    private Date dob;
+    private LocalDate dob;
     @Column(name = "email", nullable = false)
     private String email;
     @Column(name = "full_name", nullable = false)
@@ -32,7 +33,7 @@ public class Candidate {
     private List<Experience> experiences;
     @OneToMany(mappedBy = "candidate")
     private List<Candidate_skill> candidateSkills;
-    public Candidate(Date dob, String email, String full_name, String phone, Address address) {
+    public Candidate(LocalDate dob, String email, String full_name, String phone, Address address) {
         this.dob = dob;
         this.email = email;
         this.full_name = full_name;

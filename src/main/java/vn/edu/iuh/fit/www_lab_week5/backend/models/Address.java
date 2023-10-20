@@ -1,11 +1,11 @@
 package vn.edu.iuh.fit.www_lab_week5.backend.models;
 
+import com.neovisionaries.i18n.CountryCode;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import vn.edu.iuh.fit.www_lab_week5.backend.enums.Country;
 
 import java.util.List;
 
@@ -27,7 +27,7 @@ public class Address {
     private String city;
     @Enumerated(EnumType.STRING)
     @Column(name = "country" , length = 20,  nullable = false)
-    private Country country;
+    private CountryCode country;
     @Column(name = "number" , length = 20,  nullable = false)
     private String number;
     @Column(name = "zipcode" , length = 7,  nullable = false)
@@ -37,7 +37,7 @@ public class Address {
     @OneToMany(mappedBy = "address")
     private List<Candidate> candidates;
 
-    public Address(String stress, String city, Country country, String number, String zipcode) {
+    public Address(String stress, String city, CountryCode country, String number, String zipcode) {
         this.stress = stress;
         this.city = city;
         this.country = country;
