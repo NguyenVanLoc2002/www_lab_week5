@@ -21,4 +21,6 @@ public class JobSkillService {
     public List<Job_skill> findAll(){
         return jobSkillRepository.findAll();
     }
+
+
 }

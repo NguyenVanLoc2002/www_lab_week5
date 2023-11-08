@@ -22,4 +22,6 @@ public class JobSkillModel {
         return jobSkillService.findAll();
     }
 
+
+
 }

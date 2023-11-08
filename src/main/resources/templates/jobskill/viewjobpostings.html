@@ -17,14 +17,22 @@
         </div>
     </li>
     <li class="navitem"><a th:href="@{/candidates}">Ứng viên</a></li>
+    <li class="navitem"><a th:href="@{/apply}">Ứng tuyển công việc</a></li>
 </ul>
-<h2>Công việc</h2>
-<select th:id="CTY"   >
-    <option th:each="job:${jobs}" th:value="${job}" th:text="${job.company.comp_name}">
-    </option>
-</select>
-<br>
-<br>
+
+<h2>Thông tin tuyển dụng</h2>
+<div th:each="job : ${jobs}">
+    <p>Tên công việc: <span th:text="${job.name}"></span></p>
+    <p>Mô tả công việc: <span th:text="${job.desc}"></span></p>
+    <p>Các kĩ năng yêu cầu đối với công việc: </p>
+    <div th:each="jobskill : ${jobSkills}" th:if="${jobskill.job.id == job.id}">
+        Tên kỹ năng: <span th:text="${jobskill.skill.name}"></span>
+        - Cấp độ kỹ năng: <span th:text="${jobskill.skill_level}"></span>
+        - Các yêu cầu khác: <span th:text="${jobskill.more_info}"></span>
+    </div>
+    <br>
+    <br>
+</div>
 <script th:src="@{/js/NavBar.js}"></script>
 </body>
 </html>

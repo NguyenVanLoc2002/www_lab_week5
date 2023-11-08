@@ -6,6 +6,7 @@ import vn.edu.iuh.fit.www_lab_week5.backend.models.Address;
 import vn.edu.iuh.fit.www_lab_week5.backend.reponsitories.AddressRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AddressService {
@@ -13,5 +14,9 @@ public class AddressService {
     private AddressRepository addressRepository;
     public List<Address> findAll(){
         return addressRepository.findAll();
+    }
+
+    public Optional<Address> findById(long id ){
+        return addressRepository.findById(id);
     }
 }

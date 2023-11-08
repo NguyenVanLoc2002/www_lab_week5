@@ -47,13 +47,12 @@ public class JobPostingController {
     }
 
 
-
     @PostMapping("/createjobposting/new")
     public String createJobPosting(@ModelAttribute("job_skill") Job_skill jobSkill, HttpServletRequest request) {
-        String[] skillLevelArrays1 = request.getParameterValues("skill_level");
-        for (String skillLevel : skillLevelArrays1) {
-            logger.info("Skill Level: " + skillLevel);
-        }
+//        String[] skillLevelArrays1 = request.getParameterValues("skill_level");
+//        for (String skillLevel : skillLevelArrays1) {
+//            logger.info("Skill Level: " + skillLevel);
+//        }
         String[] skillArrays = request.getParameterValues("skill");
         String[] skillLevelArrays = request.getParameterValues("skill_level");
         String[] moreInfoArrays = request.getParameterValues("more_info");
@@ -77,12 +76,12 @@ public class JobPostingController {
         return "redirect:/viewjobpostings";
     }
 
-    @GetMapping ("/view")
-    public String showViewJob(Model model){
+    @GetMapping("/view")
+    public String showViewJob(Model model) {
         List<Job_skill> jobSkills = jobSkillModel.findAll();
-        model.addAttribute("jobSkills",jobSkills);
+        model.addAttribute("jobSkills", jobSkills);
         List<Job> jobs = jobModel.findAll();
-        model.addAttribute("jobs",jobs);
+        model.addAttribute("jobs", jobs);
         return "jobskill/viewjobpostings";
     }
 }
