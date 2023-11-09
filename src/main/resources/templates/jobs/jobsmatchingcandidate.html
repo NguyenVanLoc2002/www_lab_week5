@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách công việc phù hợp với ứng viên</title>
+</head>
+<body>
+<h1>Danh sách công việc phù hợp với ứng viên</h1>
+<div th:each="job :${jobs}">
+    <h2><span th:text="${job.company.comp_name}"></span></h2>
+    Địa chỉ công ty: <span
+        th:text="${job.company.address.number+'-' +job.company.address.stress+'-' +job.company.address.city+'-' +job.company.address.country}"></span> <br><br>
+    Tên công việc: <span th:text="${job.name}"></span><br><br>
+    Mô tả: <span th:text="${job.desc}"></span><br><br>
+    <div th:each="js :${jobSkills}">
+        Kỹ năng: <span th:text="${js.skill.name}"></span><br><br>
+        Cấp độ: <span th:text="${js.skill_level}"></span><br><br>
+        Thông tin thêm: <span th:text="${js.more_info}"></span><br><br>
+    </div>
+</div>
+</body>
+</html>

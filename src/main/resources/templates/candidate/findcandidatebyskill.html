@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tìm danh sách ứng viên có kỹ năng phù hợp</title>
+</head>
+<body>
+<form action="/findCanBySkill/candidates" method="get">
+    <label for="selSkill">Chọn kỹ năng:</label>
+    <select id="selSkill" name="selSkill">
+        <option th:each="skill: ${skills}" th:value="${skill.id}" th:text="${skill.name}"></option>
+    </select>
+    <input type="submit" value="Submit">
+</form>
+<h2>Candidates</h2>
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Dob</th>
+        <th>Address</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>Edit</th>
+        <th>Delete</th>
+        <th>Job Matching</th>
+        <th>Details</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="candidate : ${candidates}">
+        <td th:text="${candidate.id}"></td>
+        <td th:text="${candidate.full_name}"></td>
+        <td th:text="${candidate.dob}"></td>
+        <td th:text="${candidate.address}"></td>
+        <td th:text="${candidate.phone}"></td>
+        <td th:text="${candidate.email}"></td>
+        <td><a th:href="@{/edit/{id}(id=${candidate.id})}">Edit</a></td>
+        <td><a th:href="@{/delete/{id}(id=${candidate.id})}">Delete</a></td>
+        <td><a th:href="@{/matchingJob/{id}(id=${candidate.id})}">Job</a></td>
+        <td><a th:href="@{/details/{id}(id=${candidate.id})}">Details</a></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

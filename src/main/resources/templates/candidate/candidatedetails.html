@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Thông tin chi tiết ứng viên</title>
+</head>
+<body>
+<h1>Thông tin chi tiết ứng viên</h1>
+
+Họ tên: <span th:text="${candidate.full_name}"></span> <br>
+Ngày sinh: <span th:text="${candidate.dob}"></span><br>
+Địa chỉ: <span th:text="${candidate.address}"></span><br>
+SĐT: <span th:text="${candidate.phone}"></span><br>
+Email: <span th:text="${candidate.email}"></span><br>
+<h3>Các thông tin về kỹ năng đã có</h3>
+<div th:each="cs: ${candidateSkills}">
+    Tên kỹ năng: <span th:text="${cs.skill.name}"></span><br>
+    Cấp độ: <span th:text="${cs.skill_level}"></span><br>
+   Thông tin thêm: <span th:text="${cs.more_info}"></span><br><br>
+</div>
+<!--<a th:href="@{/suggest}">Đề xuất thêm skill còn thiếu</a>-->
+<h2>Danh sách các kỹ năng cần bổ sung</h2>
+<div th:each="s : ${skillList}">
+    Tên kỹ năng: <span th:text="${s.name}"></span><br>
+    Mô tả: <span th:text="${s.desc}"></span><br>
+</div>
+</body>
+</html>

@@ -1,8 +1,7 @@
 package vn.edu.iuh.fit.www_lab_week5.frontend.controller;
 
-import io.micrometer.common.util.StringUtils;
 import jakarta.servlet.http.HttpServletRequest;
-import org.slf4j.Logger;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,12 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import vn.edu.iuh.fit.www_lab_week5.backend.enums.SkillLevel;
+import vn.edu.iuh.fit.www_lab_week5.backend.models.Candidate;
 import vn.edu.iuh.fit.www_lab_week5.backend.models.Job;
 import vn.edu.iuh.fit.www_lab_week5.backend.models.Job_skill;
 import vn.edu.iuh.fit.www_lab_week5.backend.models.Skill;
-import vn.edu.iuh.fit.www_lab_week5.backend.services.JobService;
-import vn.edu.iuh.fit.www_lab_week5.backend.services.JobSkillService;
-import vn.edu.iuh.fit.www_lab_week5.backend.services.SkillService;
 import vn.edu.iuh.fit.www_lab_week5.frontend.models.JobModel;
 import vn.edu.iuh.fit.www_lab_week5.frontend.models.JobSkillModel;
 import vn.edu.iuh.fit.www_lab_week5.frontend.models.SkillModel;
@@ -24,14 +21,14 @@ import vn.edu.iuh.fit.www_lab_week5.frontend.models.SkillModel;
 import java.util.List;
 
 @Controller
-public class JobPostingController {
+public class JobsController {
     @Autowired
     private JobModel jobModel;
     @Autowired
     private SkillModel skillModel;
     @Autowired
     private JobSkillModel jobSkillModel;
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(JobPostingController.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(JobsController.class.getName());
 
     @GetMapping("/cj")
     public String showForm(Model model) {
@@ -43,7 +40,7 @@ public class JobPostingController {
         model.addAttribute("skillLevels", skillLevels);
 
         model.addAttribute("job_skill", new Job_skill());
-        return "jobskill/createjobposting";
+        return "jobs/createjobposting";
     }
 
 
@@ -82,6 +79,18 @@ public class JobPostingController {
         model.addAttribute("jobSkills", jobSkills);
         List<Job> jobs = jobModel.findAll();
         model.addAttribute("jobs", jobs);
-        return "jobskill/viewjobpostings";
+        return "jobs/viewjobpostings";
+    }
+
+    @GetMapping("/candidates/success")
+    public String jobMatchingCandidate(Model model, HttpSession session){
+        Candidate candidate =(Candidate) session.getAttribute("candidate");
+        List<Job> jobs = jobModel.findJobMatchingCandidate(candidate);
+        model.addAttribute("jobs", jobs);
+        for(Job job :jobs){
+            List<Job_skill> jobSkills = jobSkillModel.findJob_skillByJob(job.getId());
+            model.addAttribute("jobSkills", jobSkills);
+        }
+        return "jobs/jobsmatchingcandidate";
     }
 }
