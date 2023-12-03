@@ -1,23 +1,21 @@
 package vn.edu.iuh.fit.www_lab_week5.frontend.controller;
 
-import com.neovisionaries.i18n.CountryCode;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.relational.core.sql.In;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import vn.edu.iuh.fit.www_lab_week5.backend.enums.SkillLevel;
 import vn.edu.iuh.fit.www_lab_week5.backend.models.*;
-import vn.edu.iuh.fit.www_lab_week5.backend.reponsitories.CandidateRepository;
 import vn.edu.iuh.fit.www_lab_week5.backend.services.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -77,14 +75,12 @@ public class CandidateController {
         model.addAttribute("skillLevels", skillLevels);
         model.addAttribute("addresses", addresses);
 
-        model.addAttribute("candidate", new Candidate());
-        model.addAttribute("candidate_Skill", new Candidate_skill());
         return "candidate/add-candidate";
     }
 
     @PostMapping("/apply/new")
-    public String applyJob(@ModelAttribute("candidate_skill") Candidate_skill candidateSkill,
-                           HttpServletRequest request, HttpSession session) {
+    public String applyJob(
+            HttpServletRequest request, HttpSession session) {
         Candidate newCandidate = new Candidate();
         newCandidate.setFull_name(request.getParameter("name"));
         newCandidate.setDob(LocalDate.parse(request.getParameter("dob")));
@@ -131,30 +127,29 @@ public class CandidateController {
     }
 
     @GetMapping("/findCanBySkill")
-    public String findCanBySkill(Model model){
+    public String findCanBySkill(Model model) {
         List<Skill> skills = skillService.findAll();
         model.addAttribute("skills", skills);
         return "/candidate/findcandidatebyskill";
     }
 
     @GetMapping("/findCanBySkill/candidates")
-    public String matchingSkill(Model model,@RequestParam("selSkill") Long skillID){
+    public String matchingSkill(Model model, @RequestParam("selSkill") Long skillID) {
         List<Skill> skills = skillService.findAll();
         model.addAttribute("skills", skills);
         List<Candidate> matchingCandidates = candidateServices.findCanMatchingSkill(skillID);
-        model.addAttribute("candidates",matchingCandidates);
+        model.addAttribute("candidates", matchingCandidates);
         return "/candidate/findcandidatebyskill";
     }
 
     @GetMapping("/details/{id}")
-    public String detailsCandidate(Model model, @PathVariable("id") Long id){
+    public String detailsCandidate(Model model, @PathVariable("id") Long id) {
         List<Candidate_skill> candidateSkills = candidateSkillService.findCanSkillByCanId(id);
         Candidate candidate = candidateServices.findById(id).get();
-        List<Skill> skills = skillService.findAll();
         List<Skill> skillList = skillService.findSkillByCanId(id);
-        model.addAttribute("skillList",skillList);
-        model.addAttribute("candidateSkills",candidateSkills);
-        model.addAttribute("candidate",candidate);
+        model.addAttribute("skillList", skillList);
+        model.addAttribute("candidateSkills", candidateSkills);
+        model.addAttribute("candidate", candidate);
         return "candidate/candidatedetails";
     }
 

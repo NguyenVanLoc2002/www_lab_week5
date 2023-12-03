@@ -3,8 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>Danh sách công việc phù hợp với ứng viên</title>
+    <link th:href="@{/css/styleNavBar.css}" rel="stylesheet">
+    <script th:src="@{/js/NavBar.js}"></script>
 </head>
 <body>
+<ul class="navbar">
+    <li class="navitem"><a th:href="@{/}">Trang chủ</a></li>
+    <li class="navitem" id="jobpostingsDropdown" onmouseenter="showDropdown()" onmouseleave="hideDropdown()">
+        <a href="javascript:void(0);" class="dropbtn">Tin tuyển dụng</a>
+        <div class="dropdown-content jobpostings-content" id="jobpostingsContent">
+            <a th:href="@{/view}">Xem tin tuyển dụng</a>
+            <a th:href="@{/cj}">Đăng tin tuyển dụng</a>
+        </div>
+    </li>
+    <li class="navitem"><a th:href="@{/candidates}">Ứng viên</a></li>
+    <li class="navitem"><a th:href="@{/apply}">Ứng tuyển công việc</a></li>
+    <li class="navitem"><a th:href="@{/findCanBySkill}">Tìm ứng viên phù hợp</a></li>
+</ul>
+<br>
 <h1>Danh sách công việc phù hợp với ứng viên</h1>
 <div th:each="job :${jobs}">
     <h2><span th:text="${job.company.comp_name}"></span></h2>

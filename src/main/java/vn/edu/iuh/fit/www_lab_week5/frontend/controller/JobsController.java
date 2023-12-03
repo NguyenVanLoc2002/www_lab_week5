@@ -46,10 +46,6 @@ public class JobsController {
 
     @PostMapping("/createjobposting/new")
     public String createJobPosting(@ModelAttribute("job_skill") Job_skill jobSkill, HttpServletRequest request) {
-//        String[] skillLevelArrays1 = request.getParameterValues("skill_level");
-//        for (String skillLevel : skillLevelArrays1) {
-//            logger.info("Skill Level: " + skillLevel);
-//        }
         String[] skillArrays = request.getParameterValues("skill");
         String[] skillLevelArrays = request.getParameterValues("skill_level");
         String[] moreInfoArrays = request.getParameterValues("more_info");

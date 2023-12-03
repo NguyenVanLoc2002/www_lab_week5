@@ -18,10 +18,11 @@
     </li>
     <li class="navitem"><a th:href="@{/candidates}">Ứng viên</a></li>
     <li class="navitem"><a th:href="@{/apply}">Ứng tuyển công việc</a></li>
+    <li class="navitem"><a th:href="@{/findCanBySkill}">Tìm ứng viên phù hợp</a></li>
 </ul>
 
 <h1>Ứng tuyển</h1>
-<form action="apply/new" method="post" th:object="${candidate_Skill}">
+<form action="apply/new" method="post" >
 
         <label for="name">Họ và tên:</label>
         <input type="text" id="name" name="name"></br></br>
@@ -48,12 +49,12 @@
     <label>Chọn kỹ năng: </label>
     <div th:each="skill: ${skills}">
         <input type="checkbox" th:id="${'skill-' + skill.id}" th:name="skill" th:value="${skill.id}"
-               th:field="*{skill}">
+              >
         <label th:for="${'skill-' + skill.id}" th:text="${skill.name}"></label><br>
 
         <!--        Chọn cấp độ kỹ năng-->
         <label th:for="${'skillLV-'+skill.id}">Chọn cấp độ kỹ năng: </label>
-        <select th:id="${'skillLV-'+skill.id}" name="skill_level" th:field="*{skill_level}"  disabled>
+        <select th:id="${'skillLV-'+skill.id}" name="skill_level"   disabled>
             <option th:each="sl:${skillLevels}" th:value="${sl}" th:text="${sl}">
             </option>
         </select>
@@ -61,7 +62,7 @@
 
         <!--        Điền các thông tin khác-->
         <label th:for="${'more_info-'+skill.id}">Mô tả thêm: </label>
-        <textarea th:field="*{more_info}" th:id="${'more_info-'+skill.id}" rows="5" cols="50" placeholder="Mô tả thêm"
+        <textarea name="more_info" th:id="${'more_info-'+skill.id}" rows="5" cols="50" placeholder="Mô tả thêm"
                   style="resize: none" disabled></textarea>
     </div>
     <button type="submit">Apply</button>
