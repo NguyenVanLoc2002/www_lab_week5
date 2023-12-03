@@ -104,4 +104,6 @@ V. Và các yêu cầu khác
   - Tại view candidates-paging dùng thẻ <div th:switch="${candidatePage}"> đê kiểm tra:
     + Nếu null hiển thị <h2 th:case="null">No candidates yet</h2>
     + Ngược lại hiển thị các candidate trong candidatePage.content <tr th:each="candidate ,iStat: ${candidatePage.content}"
-    + Hiển thị dòng chuyển trang 
+    + Hiển thị dòng chuyển trang
+
+
